@@ -1,0 +1,11 @@
+
+1. Crear instancia de servidor en la misma maquina, en el cmd con permisos de admin:
+ --ruta del initdb---
+"E:\POSTGRESQL\bin\initdb" -D e:\POSTGRESQL2 –U postgres -W -A md5
+
+
+2. Ahora para iniciar el servidor
+"E:\POSTGRESQL\bin\pg_ctl" start -D E:\POSTGRESQL2
+
+3. Finalmente se crea el servicio
+"E:\POSTGRESQL\bin\pg_ctl" register -N POSTGRESQL2 -D E:\POSTGRESQL2
