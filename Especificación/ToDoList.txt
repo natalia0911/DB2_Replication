@@ -1,0 +1,44 @@
+
+1. Restaurar la BD
+
+2. A la BD dvdRental aplicar roles emp y admin
+SP PERMITIDOS PARA EMP 
+	insertar un nuevo cliente
+	registrar un alquiler
+	registrar una devolución
+	buscar una película
+
+SP PERMITIDOS PARA ADMIN
+	insertar un nuevo cliente
+	insertar una nueva película y su inventario (copias)
+
+
+3. Usuarios
+Video: Dueño de todo, un DBA
+Empleado1: Rol EMP
+Administrador1: Rol ADMIN
+
+
+4. Replica de la BD en otra, no necesariamente debe ser otro servidor, puede ser en el mismo
+La réplica es completa pero solo algunas tablas se necesitan para los SP
+
+5. Hacer modelo estrella creo que en la misma BD que tiene la réplica
+
+6. Procedimientos para alimentar con datos el esquema estrella a partir de la réplica de la base de datos de alquileres.
+
+7. SP para un mes dado, sin importar el año, dar para cada categoría de película el número de alquileres realizados
+
+8. SP dar el número de alquileres y el monto cobrado, por duración del préstamo
+
+9. SP hacer un rollup por año y mes para el monto cobrado por alquileres
+
+10. SP hacer un cubo por año y categoría de película para el número de alquileres y el monto cobrado
+
+11. Índices
+--------------------------------LINKS IMPORTANTES--------------------------------
+
+https://www.guru99.com/etl-extract-load-process.html     -- Proceso ETL (extracción, transformación y carga) en el almacén de datos
+
+https://www.postgresqltutorial.com/postgresql-sample-database/      -- Explicación de la BD
+
+https://www.postgresqltutorial.com/load-postgresql-sample-database/    -- Cargar BD
