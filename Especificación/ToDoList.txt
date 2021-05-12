@@ -20,11 +20,14 @@ Administrador1: Rol ADMIN
 
 
 4. Replica de la BD en otra, no necesariamente debe ser otro servidor, puede ser en el mismo
-La réplica es completa pero solo algunas tablas se necesitan para los SP
+La réplica es completa pero solo algunas tablas se necesitan para los SP, en la instancia que se encuentra
+la replica, se hace el modelo estrella
 
 5. Hacer modelo estrella creo que en la misma BD que tiene la réplica
 
 6. Procedimientos para alimentar con datos el esquema estrella a partir de la réplica de la base de datos de alquileres.
+Este procedimiento extrae los datos del otro modelo, se corre manual y siempre carga todo, o sea no hacen falta triggers cada 
+vez que se insertan datos nuevos al modelo grande.
 
 7. SP para un mes dado, sin importar el año, dar para cada categoría de película el número de alquileres realizados
 

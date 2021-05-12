@@ -1,5 +1,7 @@
 
-1. Crear instancia de servidor en la misma maquina, en el cmd con permisos de admin:
+-----------------------------------------CREAR INSTANCIA DE POSTGRESQL - SERVIDOR EN WINDOWS-----------------------------------------
+(Es necesario cambiar el puerto en postgres.conf)
+1. Crear instancia de postgresql-servidor en la misma maquina, en el cmd con permisos de admin:
  --ruta del initdb---
 "E:\POSTGRESQL\bin\initdb" -D e:\POSTGRESQL2 –U postgres -W -A md5
 
@@ -9,3 +11,64 @@
 
 3. Finalmente se crea el servicio
 "E:\POSTGRESQL\bin\pg_ctl" register -N POSTGRESQL2 -D E:\POSTGRESQL2
+
+
+-----------------------------------------REPLICAR TABLAS EN LA OTRA INSTANCIA - WINDOWS-----------------------------------------------
+
+1. Crear un rol que permita replicar
+
+CREATE ROLE replicator REPLICATION LOGIN PASSWORD 'replicator123';
+
+2. Editar el archivo pg_hba.conf
+
+En la siguiente ruta en mi máquina se encuentra
+E:\POSTGRESQL\DATA\pg_hba.conf
+
+Agregar esa línea en esta parte
+# IPv4 local connections:
+host    all             replicator      127.0.0.1/32            scram-sha-256
+
+2. Editar el archivo postgres.conf
+Agregar esta linea:
+wal_level = logical			# minimal, replica, or logical
+
+3. Después de estos cambios, reiniciar el servicio de la instancia de postgresql
+Desde servicios en windows o con pg_ctl stop y pg_ctl start desde la consola psql
+
+4. Entrar en la base de datos dvdrental en este caso, con \c dvdrental
+Una vez dentro
+CREATE PUBLICATION bpub FOR TABLE nombretabla; -- Para cada tabla supongo
+
+5. Dar derechos a replicator para acceder a las tablas
+GRANT ALL ON nombretabla TO replicator;
+
+Para verificar los privilegios que tiene ese rol
+select privilege_type, table_name from information_schema.role_table_grants where grantee ='replicator';
+
+
+6. Hacer dumps en fuente y correr ddl en destino, desde el CMD 
+En fuente:
+pg_dump --host=localhost --dbname=dvdrental --port=5433 --username=postgres -t actor -s -W > actor.sql
+Esto produce el ddl para el destino
+
+En destino:
+psql --host=localhost --dbname=dvdrental --port=5432 --username=postgres --file=actor.sql -W
+
+(PRODUCE ERROR PORQUE NO EXISTE REPLICATOR EN DESTINO PERO X)
+7. Crear susbcripción
+CREATE SUBSCRIPTION bsub CONNECTION 'dbname=postgres host=<fuente> port=<puerto> user=replicator password=replic123' PUBLICATION bpub;
+
+Esto se pone en el DESTINO EN PSQL
+CREATE SUBSCRIPTION bsub CONNECTION 'dbname=postgres host=localhost port=5433 user=replicator password=replicator123' PUBLICATION bpub;
+
+
+
+NOTAS:
+\du 						-- ver roles
+drop susbcription/publication <nombre>    	-- borrar
+\l     						-- ver bases existentes en el server
+\c <nombre>					-- entrar a la base
+\dt						-- ver tablas de la base
+
+
+
