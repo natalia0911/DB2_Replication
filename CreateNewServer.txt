@@ -48,11 +48,11 @@ select privilege_type, table_name from information_schema.role_table_grants wher
 
 6. Hacer dumps en fuente y correr ddl en destino, desde el CMD 
 En fuente:
-pg_dump --host=localhost --dbname=dvdrental --port=5433 --username=postgres -t actor -s -W > actor.sql
+pg_dump --host=localhost --dbname=dvdrental --port=5433 --username=postgres -f dvdrental.sql
 Esto produce el ddl para el destino
 
 En destino:
-psql --host=localhost --dbname=dvdrental --port=5432 --username=postgres --file=actor.sql -W
+psql --host=localhost --dbname=dvdrental --port=5432 --username=postgres --file=dvdrental.sql -W
 
 (PRODUCE ERROR PORQUE NO EXISTE REPLICATOR EN DESTINO PERO X)
 7. Crear susbcripción
