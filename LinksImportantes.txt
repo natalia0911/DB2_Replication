@@ -1,3 +1,4 @@
 
+ https://www.guru99.com/etl-extract-load-process.html 
 
 https://youtu.be/HvzO18fUjqY     --- Tabla de hechos y dimensiones | Modelo Estrella [DATA MART]

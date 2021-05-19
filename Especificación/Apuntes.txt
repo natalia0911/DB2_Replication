@@ -1,3 +1,0 @@
-
-Solo usar 2 servidores, el segundo tendrá el modelo estrella
-Pasos en esta pagina : https://www.guru99.com/etl-extract-load-process.html

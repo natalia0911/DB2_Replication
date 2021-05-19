@@ -23,7 +23,7 @@ BEGIN
 
 	FROM public."rental" as R, public."film" as F,public."language" as L, public."country" AS CO, public."city" AS CI, 
 		public."address" AS AD, public."DimDate" AS DD, public."DimDurationLoan" AS DDL, public."DimPlace" AS DP,
-		public."payment" AS PY,public."inventory" AS I, public."customer" CU, public."store" AS ST
+		public."payment" AS PY,public."inventory" AS I, public."customedr" CU, public."store" AS ST
 		
 		    --Que la fecha de rental y DD sean la misma
 	WHERE (DD."year"=EXTRACT(YEAR FROM R."rental_date") AND DD."month"=EXTRACT(MONTH FROM R."rental_date") AND DD."day"=EXTRACT(DAY FROM R."rental_date"))
