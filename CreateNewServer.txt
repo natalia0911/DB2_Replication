@@ -37,7 +37,7 @@ Desde servicios en windows o con pg_ctl stop y pg_ctl start desde la consola psq
 
 4. Entrar en la base de datos dvdrental en este caso, con \c dvdrental
 Una vez dentro
-CREATE PUBLICATION bpub FOR TABLE nombretabla; -- Para cada tabla supongo
+CREATE PUBLICATION bpub FOR ALL TABLES; -- Para cada tabla supongo
 
 5. Dar derechos a replicator para acceder a las tablas
 GRANT ALL ON nombretabla TO replicator;
@@ -56,10 +56,8 @@ psql --host=localhost --dbname=dvdrental --port=5432 --username=postgres --file=
 
 (PRODUCE ERROR PORQUE NO EXISTE REPLICATOR EN DESTINO PERO X)
 7. Crear susbcripción
-CREATE SUBSCRIPTION bsub CONNECTION 'dbname=postgres host=<fuente> port=<puerto> user=replicator password=replic123' PUBLICATION bpub;
-
 Esto se pone en el DESTINO EN PSQL
-CREATE SUBSCRIPTION bsub CONNECTION 'dbname=postgres host=localhost port=5433 user=replicator password=replicator123' PUBLICATION bpub;
+CREATE SUBSCRIPTION bsub CONNECTION 'dbname=dvdrental host=localhost port=5433 user=replicator password=replicator123' PUBLICATION bpub;
 
 
 
