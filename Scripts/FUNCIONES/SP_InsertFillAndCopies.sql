@@ -91,28 +91,37 @@ BEGIN
 END;
 $$
 LANGUAGE plpgsql 
+SECURITY DEFINER
 
 
 --SELECT SP_InsertFillAndCopies('Titanic','The titanic sinks',1997,'English',6,0.99,85,20.9,to_tsvector('english','just a sentence here'),'Drama',3,2);
 
 
---DO $$
---begin
---	IF (EXISTS(SELECT title FROM public.film WHERE title='AcademyXD Dinosaur')) THEN
---		raise notice 'Está';
---	ELSE
---		raise notice 'No está';
---	end if;
---end;
---$$;
---SELECT CURRENT_TIMESTAMP,NOW(),now()::timestamp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 --DO $$
---BEGIN
---	FOR b in 1..5 LOOP
---		raise notice 'IN LOOP';
---	END LOOP;
---END;
+--begin
+--Codigo prueba
+--end;
 --$$;
+
 
 

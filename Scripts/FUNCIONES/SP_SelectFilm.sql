@@ -32,6 +32,7 @@ BEGIN
 END;
 $$
 LANGUAGE plpgsql
+SECURITY DEFINER
 
 
 --Nota lo devuelve en tupla para ser leído desde la capa de acceso a datos

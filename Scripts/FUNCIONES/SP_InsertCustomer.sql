@@ -47,6 +47,7 @@ INSERT INTO public.customer(
 END;
 $$
 LANGUAGE plpgsql 
+SECURITY DEFINER
 
 
 
