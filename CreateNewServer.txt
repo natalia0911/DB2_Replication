@@ -41,6 +41,7 @@ CREATE PUBLICATION bpub FOR ALL TABLES; -- Para cada tabla supongo
 
 5. Dar derechos a replicator para acceder a las tablas
 GRANT ALL ON nombretabla TO replicator;
+GRANT ALL ON ALL TABLES IN SCHEMA public TO replicator;
 
 Para verificar los privilegios que tiene ese rol
 select privilege_type, table_name from information_schema.role_table_grants where grantee ='replicator';
@@ -48,7 +49,7 @@ select privilege_type, table_name from information_schema.role_table_grants wher
 
 6. Hacer dumps en fuente y correr ddl en destino, desde el CMD 
 En fuente:
-pg_dump --host=localhost --dbname=dvdrental --port=5433 --username=postgres -f dvdrental.sql
+pg_dump --host=localhost --dbname=dvdrental --port=5433 --username=postgres -s -f dvdrental.sql
 Esto produce el ddl para el destino
 
 En destino:
@@ -69,4 +70,5 @@ drop susbcription/publication <nombre>    	-- borrar
 \dt						-- ver tablas de la base
 
 
-
+-----Reiniciar Identity de una tabla, OJO, es diferente al secuencial-----
+TRUNCATE TABLE public."Rentals" RESTART IDENTITY;
