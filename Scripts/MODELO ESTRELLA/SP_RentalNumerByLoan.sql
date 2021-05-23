@@ -18,11 +18,12 @@ BEGIN
 	RETURN QUERY
 	SELECT 
 	     DDL."rental_duration_days"
-		,SUM(loaned_units)
+		,COUNT(1)
 		,SUM(amount_charged)
 		
 		FROM public."Rentals" AS R INNER JOIN public."DimDurationLoan" AS DDL ON R."DimDurationLoan_id"=DDL."duration_id"
-		GROUP BY(DDL."rental_duration_days");
+		GROUP BY(DDL."rental_duration_days")
+		ORDER BY (DDL."rental_duration_days");
 
 END;
 $$
