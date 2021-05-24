@@ -36,8 +36,9 @@ BEGIN
 	INNER JOIN public."store" AS ST ON I."store_id"=ST."store_id" INNER JOIN public."DimPlace" AS DP ON DP."store_id"=ST."store_id"  --DP."store_id"
 	INNER JOIN public."language" as L ON F."language_id"=L."language_id" INNER JOIN public."DimLanguages" AS DL ON L."language_id"=DL."language_id" --L."language_id"
 	INNER JOIN public."DimDurationLoan" AS DDL ON 
-		COALESCE(DATE_PART('day', R."return_date"::timestamp - R."rental_date"::timestamp),0)=DDL."rental_duration_days"--L."language_id"
-	LEFT JOIN tempPayment AS PY ON R."rental_id"=PY."rental_id"
+		COALESCE((date_part ('day',R."return_date" - R."rental_date"))
+	    +CEILING(date_part ('hour',R."return_date" -R. "rental_date" )/24),0)=DDL."rental_duration_days"  --L."language_id" --DDl."duration_id"
+	LEFT JOIN tempPayment AS PY ON R."rental_id"=PY."rental_id"  --PY."amount"
 
 	);
 
@@ -71,6 +72,8 @@ LANGUAGE plpgsql
 
 --DROP TABLE temprentals;
 --DROP TABLE tempPayment;
+
+--DELETE FROM public."Rentals";
 --TRUNCATE TABLE public."Rentals" RESTART IDENTITY;
 
 --CALL SP_LlenarRentals();

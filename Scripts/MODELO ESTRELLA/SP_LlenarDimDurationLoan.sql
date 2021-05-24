@@ -7,15 +7,17 @@
 CREATE OR REPLACE PROCEDURE SP_LlenarDimDurationLoan() 
 AS $$
 BEGIN 
-INSERT INTO public."DimDurationLoan"
-(
-	"rental_duration_days"
-)
-SELECT DISTINCT
-	-- Puede ser así o where return_date = NOT NULL
-	COALESCE(DATE_PART('day', R."return_date"::timestamp - R."rental_date"::timestamp),0)  
-	 
-FROM public."rental" as R;
+	INSERT INTO public."DimDurationLoan"
+	(
+		"rental_duration_days"
+	)
+	SELECT DISTINCT
+		COALESCE((date_part ('day',  R."return_date" - R."rental_date" )) +
+		CEILING(date_part ('hour', R."return_date" -R. "rental_date" ) /24),0)
+
+	FROM public."rental" as R
+	ORDER BY(1);  -- Order by duration
+	
 
 END;
 $$
@@ -23,3 +25,7 @@ LANGUAGE plpgsql
 
 
 --CALL SP_LlenarDimDurationLoan();
+
+--DELETE FROM public."DimDurationLoan";
+--TRUNCATE public."DimDurationLoan" RESTART IDENTITY;
+
