@@ -142,3 +142,19 @@ TABLESPACE pg_default;
 
 ALTER TABLE public."Rentals"
     OWNER to postgres;
+
+
+--Crear índices para las dimensiones
+
+CREATE INDEX ON "Rentals" ("DimDate_id");
+CREATE INDEX ON "Rentals" ("DimDurationLoan_id");
+
+--Crear indices para organizar la dimension de fechas por distintos valores
+
+CREATE INDEX ON "DimDate" ("year" ASC);
+CREATE INDEX ON "DimDate" ("month" ASC);
+CREATE INDEX ON "DimDate" ("day" ASC);
+
+--Crear dimension para la duración de la dimensión de rentas
+
+CREATE INDEX ON "DimDurationLoan" ("rental_duration_days" ASC);
