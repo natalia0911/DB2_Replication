@@ -14,7 +14,7 @@ INSERT INTO public."DimFilms"
 	,"title"
 	,"category_name"
 )
-SELECT --DISTINCT
+SELECT DISTINCT
 	 F."film_id"
 	,F."title"
 	,CA."name"

@@ -13,7 +13,7 @@ CREATE USER empleado1 WITH PASSWORD 'empleado1pw';
 
 CREATE USER administrador1 WITH PASSWORD 'administrador1pw';
 
-CREATE USER video WITH
+CREATE USER video WITH PASSWORD 'videopw';
 	LOGIN      -- Then NOLOGIN
 	SUPERUSER
 	CREATEDB
@@ -21,6 +21,8 @@ CREATE USER video WITH
 	INHERIT
 	NOREPLICATION
 	CONNECTION LIMIT -1;
+	
+
 
 ----------------------Assign roles----------------------
 

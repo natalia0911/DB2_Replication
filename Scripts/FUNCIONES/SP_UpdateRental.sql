@@ -14,7 +14,6 @@ CREATE OR REPLACE FUNCTION SP_UpdateRental(
 
 AS $$
 BEGIN 
---START TRANSACTION 
 
     UPDATE public."rental" AS R
     SET
@@ -22,10 +21,6 @@ BEGIN
            
     WHERE R.rental_id = prental_id;
 	
---COMMIT;
---EXCEPTION WHEN OTHERS THEN
---ROLLBACK;
-
 END;
 $$
 LANGUAGE plpgsql 
